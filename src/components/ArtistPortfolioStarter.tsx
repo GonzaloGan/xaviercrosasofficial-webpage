@@ -340,7 +340,7 @@ export default function ArtistPortfolioStarter() {
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
               <div className="max-w-sm rounded-3xl border border-white/10 bg-black/60 p-5 backdrop-blur-xl">
                 <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">Xavier Crosas</h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-justify hyphens-auto text-white/70">
                   {t.heroBody}
                 </p>
               </div>
