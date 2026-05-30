@@ -451,7 +451,7 @@ export default function ArtistPortfolioStarter() {
                 <p className="mt-3 max-w-2xl text-white/70">{t.contactBody}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black">
+                <a href={`mailto:${site.email}`} data-obfuscation="1" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black">
                   <FiMail className="h-4 w-4" /> Email
                 </a>
                 <a href={site.instagram} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white">
