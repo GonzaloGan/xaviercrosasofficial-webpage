@@ -2,5 +2,10 @@
 import ArtistPortfolioStarter from '../components/ArtistPortfolioStarter';
 import "../styles/global.css";
 ---
+<html lang="en">
+  <body class="font-sans bg-[#0b0b0d] text-white antialiased">
+    <slot />
+  </body>
+</html>
 
-<ArtistPortfolioStarter client:load />
+<ArtistPortfolioStarter client:visible />
