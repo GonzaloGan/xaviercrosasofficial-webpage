@@ -68,6 +68,7 @@ import { FaInstagram, FaYoutube, FaXTwitter } from "react-icons/fa6";
 import xaviHero from '../assets/images/xavi1.webp';
 import xaviAlbum from '../assets/images/xavi_album.png';
 import BreakTheIllusions from '../assets/images/break_the_illusions.jpg';
+import Wanderer from '../assets/images/xavi_wolf.jpg'
 
 // Single-file starter for a music portfolio website.
 // Replace the placeholders in `site` with your branding, images, links, and content.
@@ -351,6 +352,21 @@ export default function ArtistPortfolioStarter() {
 
         <section id="music" className="mx-auto max-w-7xl px-5 py-6 lg:px-8 lg:py-10">
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+              <img src={Wanderer.src} alt="Featured release" className="h-72 w-full object-cover" />
+              <div className="p-6 sm:p-8">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/45">{t.featured}</p>
+                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">The Archetype III: The Wanderer</h3>
+                <p className="mt-3 max-w-xl text-white/70">
+                  © 2026 XCB Studio
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <a href="https://open.spotify.com/intl-es/track/53REbMHYYx6Krvu5ioXRIn" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white px-5 py-3 text-sm font-medium text-black">
+                    <FiMusic className="h-4 w-4" /> Streaming
+                  </a>
+                </div>
+              </div>
+            </article>
             <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
               <img src={BreakTheIllusions.src} alt="Featured release" className="h-72 w-full object-cover" />
               <div className="p-6 sm:p-8">
