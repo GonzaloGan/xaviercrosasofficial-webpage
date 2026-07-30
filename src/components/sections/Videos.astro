@@ -23,6 +23,8 @@ try {
 } catch (error) {
   console.error('[videos] YouTube feed unavailable:', error);
 }
+
+const hydrateFromApi = videos.length === 0;
 ---
 
 <section id="videos" class="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-14">
@@ -46,9 +48,12 @@ try {
 
   {
     videos.length === 0 ? (
-      <p class="rounded-panel border border-white/10 bg-white/5 p-6 text-white/60">
-        {t('videos.empty')}
-      </p>
+      <>
+        <p id="videos-empty" class="rounded-panel border border-white/10 bg-white/5 p-6 text-white/60">
+          {t('videos.empty')}
+        </p>
+        <ul id="videos-list" class="hidden grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite" />
+      </>
     ) : (
       <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {videos.map((video) => (
@@ -79,6 +84,105 @@ try {
           </li>
         ))}
       </ul>
+    )
+  }
+
+  {
+    hydrateFromApi && (
+      <script is:inline>
+        const list = document.getElementById('videos-list');
+        const empty = document.getElementById('videos-empty');
+        const locale = {JSON.stringify(locale)};
+        const openInNewTab = {JSON.stringify(t('a11y.opensInNewTab'))};
+
+        function safeDate(value) {
+          const date = new Date(value);
+          if (Number.isNaN(date.getTime())) return '';
+          return new Intl.DateTimeFormat(locale, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          }).format(date);
+        }
+
+        function createCard(video) {
+          const li = document.createElement('li');
+          const anchor = document.createElement('a');
+          anchor.href = video.url;
+          anchor.target = '_blank';
+          anchor.rel = 'noopener noreferrer';
+          anchor.className =
+            'group block overflow-hidden rounded-panel border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:bg-white/10';
+
+          const img = document.createElement('img');
+          img.src = video.thumbnail;
+          img.alt = '';
+          img.width = 480;
+          img.height = 360;
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.className = 'h-44 w-full object-cover transition group-hover:scale-105';
+
+          const body = document.createElement('div');
+          body.className = 'p-5';
+
+          const title = document.createElement('h3');
+          title.className = 'line-clamp-2 text-base font-medium text-white';
+          title.textContent = video.title;
+
+          const meta = document.createElement('p');
+          meta.className = 'mt-2 text-xs text-white/45';
+          const time = document.createElement('time');
+          time.dateTime = video.publishedAt;
+          time.textContent = safeDate(video.publishedAt);
+          meta.appendChild(time);
+
+          const sr = document.createElement('span');
+          sr.className = 'sr-only';
+          sr.textContent = `(${openInNewTab})`;
+
+          body.appendChild(title);
+          body.appendChild(meta);
+          anchor.appendChild(img);
+          anchor.appendChild(body);
+          anchor.appendChild(sr);
+          li.appendChild(anchor);
+
+          return li;
+        }
+
+        async function hydrateVideos() {
+          if (!list) return;
+
+          try {
+            const response = await fetch('/api/youtube-latest', {
+              headers: { Accept: 'application/json' },
+            });
+            if (!response.ok) return;
+
+            const payload = await response.json();
+            if (!Array.isArray(payload?.items) || payload.items.length === 0) return;
+
+            const fragment = document.createDocumentFragment();
+            for (const video of payload.items) {
+              if (!video?.id || !video?.title || !video?.publishedAt || !video?.thumbnail || !video?.url) {
+                continue;
+              }
+              fragment.appendChild(createCard(video));
+            }
+
+            if (!fragment.childNodes.length) return;
+
+            list.appendChild(fragment);
+            list.classList.remove('hidden');
+            empty?.remove();
+          } catch (error) {
+            console.error('[videos] runtime hydration failed:', error);
+          }
+        }
+
+        hydrateVideos();
+      </script>
     )
   }
 </section>
