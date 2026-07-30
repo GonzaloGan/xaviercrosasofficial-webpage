@@ -18,7 +18,7 @@ export const site: SiteProfile = {
   email: 'xaviercrosasofficial@gmail.com',
   social: {
     instagram: 'https://instagram.com/xaviercrosasofficial',
-    youtube: 'https://youtube.com/@XavierCrosasOFFICIAL',
+    youtube: 'https://youtube.com/@XavierCrosas',
     spotify: 'https://open.spotify.com/artist/6PaPHlXXxfowSsJdvdxyke',
   },
 };
