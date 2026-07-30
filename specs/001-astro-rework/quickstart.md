@@ -2,6 +2,8 @@
 
 **Feature:** 001-astro-rework
 
+**Implementation status:** Completed on 2026-07-30 (see [tasks.md](./tasks.md)).
+
 Everything needed to run, change and ship this site.
 
 ---

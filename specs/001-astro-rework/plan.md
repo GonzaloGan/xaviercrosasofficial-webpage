@@ -3,6 +3,7 @@
 **Feature:** 001-astro-rework
 **Spec:** [spec.md](./spec.md)
 **Date:** 2026-07-30
+**Status:** Completed
 
 ---
 

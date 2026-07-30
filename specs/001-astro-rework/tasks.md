@@ -144,7 +144,7 @@ A task is done when its check passes and the constitution's Definition of Done h
   `jsx` compiler options from `tsconfig.json`.
   *Check:* `npm ci && npm run build` succeeds. *(Fixes D-12)*
 
-- [ ] **T027** Run the full acceptance checklist in [spec.md](./spec.md) §7 and the verification
+- [x] **T027** Run the full acceptance checklist in [spec.md](./spec.md) §7 and the verification
   list in [quickstart.md](./quickstart.md).
   *Check:* all nine acceptance criteria demonstrated.
 

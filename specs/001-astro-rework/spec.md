@@ -2,7 +2,7 @@
 
 **Feature branch:** `001-astro-rework`
 **Created:** 2026-07-30
-**Status:** Approved, in implementation
+**Status:** Implemented
 **Input:** "This project is a blog created with astro.build, using vibe code, it ended as shit …
 we need to rework it to use astro.build properly."
 
@@ -181,3 +181,11 @@ The feature is accepted when all of the following are demonstrated:
 - English is the default locale and is served without a path prefix.
 - The YouTube channel RSS feed remains publicly accessible and requires no API key.
 - Existing artwork in `src/assets/images/` is the licensed, final artwork.
+
+---
+
+## 9. Implementation record
+
+- Implemented on 2026-07-30.
+- Acceptance checklist in §7 completed.
+- Task checklist is fully complete in [tasks.md](./tasks.md).
