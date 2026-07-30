@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { fetchLatestVideos } from '../../lib/youtube';
 
 // Live data: this is the one route that is not prerendered.
@@ -18,18 +19,18 @@ type WorkerRuntimeEnv = {
   SECRETS_KV?: SecretsKvBinding;
 };
 
-async function resolveChannelId(locals: App.Locals): Promise<string | undefined> {
-  const runtime = (locals as App.Locals & { runtime?: { env?: WorkerRuntimeEnv } }).runtime;
-  const secret = runtime?.env?.YOUTUBE_CHANNEL_ID?.trim();
+async function resolveChannelId(): Promise<string | undefined> {
+  const runtimeEnv = env as WorkerRuntimeEnv;
+  const secret = runtimeEnv.YOUTUBE_CHANNEL_ID?.trim();
   if (secret) return secret;
 
-  const kvValue = await runtime?.env?.SECRETS_KV?.get(YOUTUBE_CHANNEL_ID_KEY);
+  const kvValue = await runtimeEnv.SECRETS_KV?.get(YOUTUBE_CHANNEL_ID_KEY);
   const channelId = kvValue?.trim();
   return channelId || undefined;
 }
 
-export const GET: APIRoute = async ({ locals }) => {
-  const channelId = await resolveChannelId(locals);
+export const GET: APIRoute = async () => {
+  const channelId = await resolveChannelId();
 
   if (!channelId) {
     return new Response(JSON.stringify({ items: [], count: 0, error: 'missing_channel_id' }), {
