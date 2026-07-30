@@ -23,15 +23,27 @@ const promo = site.promoBanner;
             <p class="mt-3 max-w-2xl text-sm text-white/75 sm:text-base">{t('promo.body')}</p>
           </div>
 
-          <a
-            href={promo.spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] hover:bg-white/90"
-          >
-            {t('promo.cta')}
-            <span class="sr-only">({t('a11y.opensInNewTab')})</span>
-          </a>
+          <div class="flex flex-col gap-3 sm:items-end">
+            <a
+              href={promo.spotifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] hover:bg-white/90"
+            >
+              {t('promo.cta')}
+              <span class="sr-only">({t('a11y.opensInNewTab')})</span>
+            </a>
+
+            <a
+              href="https://linktr.ee/xaviercrosasofficial"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] hover:bg-white/90"
+            >
+              {t('promo.secondaryCta')}
+              <span class="sr-only">({t('a11y.opensInNewTab')})</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
