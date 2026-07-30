@@ -24,8 +24,9 @@ const en = {
   'hero.secondary': 'View videos',
 
   'promo.kicker': 'New release',
-  'promo.body': "A new album is now available on Spotify. Listen and share if it resonates with you.",
+  'promo.body': "A new album is now available on all platforms. Listen and share if it resonates with you.",
   'promo.cta': 'Listen on Spotify',
+  'promo.secondaryCta': 'Check other platforms',
 
   'music.heading': 'Music',
   'music.featured': 'Featured release',
@@ -71,8 +72,9 @@ const es = {
   'hero.secondary': 'Ver vídeos',
 
   'promo.kicker': 'Nuevo lanzamiento',
-  'promo.body': 'Hay un nuevo álbum disponible en Spotify. Escúchalo y compártelo si conecta contigo.',
+  'promo.body': 'Hay un nuevo álbum disponible en todas las plataformas. Escúchalo y compártelo si conecta contigo.',
   'promo.cta': 'Escuchar en Spotify',
+  'promo.secondaryCta': 'Ver otras plataformas',
 
   'music.heading': 'Música',
   'music.featured': 'Lanzamiento destacado',
@@ -116,8 +118,9 @@ const ca = {
   'hero.secondary': 'Veure vídeos',
 
   'promo.kicker': 'Nou llançament',
-  'promo.body': 'Hi ha un nou àlbum disponible a Spotify. Escolta\'l i comparteix-lo si et ressona.',
+  'promo.body': 'Hi ha un nou àlbum disponible a totes les plataformes. Escolta\'l i comparteix-lo si et ressona.',
   'promo.cta': 'Escoltar a Spotify',
+  'promo.secondaryCta': 'Veure altres plataformes',
 
   'music.heading': 'Música',
   'music.featured': 'Publicació destacada',
@@ -161,8 +164,9 @@ const nl = {
   'hero.secondary': "Video's bekijken",
 
   'promo.kicker': 'Nieuwe release',
-  'promo.body': 'Er staat nu een nieuw album op Spotify. Luister en deel het als het bij je binnenkomt.',
+  'promo.body': 'Er staat nu een nieuw album op alle platforms. Luister en deel het als het bij je binnenkomt.',
   'promo.cta': 'Luisteren op Spotify',
+  'promo.secondaryCta': 'Bekijk andere platforms',
 
   'music.heading': 'Muziek',
   'music.featured': 'Uitgelichte release',
