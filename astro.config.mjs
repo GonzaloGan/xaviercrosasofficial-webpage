@@ -1,7 +1,7 @@
 // @ts-check
 
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, sessionDrivers } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -19,6 +19,11 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
     },
+  },
+
+  // Keep sessions off Cloudflare KV to avoid requiring a SESSION binding.
+  session: {
+    driver: sessionDrivers.memory(),
   },
 
   integrations: [
