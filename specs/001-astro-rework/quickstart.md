@@ -37,7 +37,7 @@ cache headers only behave correctly in the Workers runtime.
 Create `.env` in the project root for local development:
 
 ```
-YOUTUBE_CHANNEL_ID=UCPJbHYCqGDWiULG6dDE_Tzw
+YOUTUBE_CHANNEL_ID=UC_REPLACE_WITH_XAVIERCROSASOFFICIAL_CHANNEL_ID
 ```
 
 For production API requests, set it as a Worker secret:
