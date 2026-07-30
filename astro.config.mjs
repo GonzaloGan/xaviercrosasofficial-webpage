@@ -1,10 +1,7 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
-
-import react from '@astrojs/react';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -14,8 +11,34 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
-  integrations: [mdx(), sitemap(), react(), mailObfuscation()],
+  site: 'https://www.xaviercrosasofficial.com',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es', 'ca', 'nl'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
+  env: {
+    schema: {
+      // The channel is public information, but keeping it in configuration means the
+      // feed reader stays reusable and a missing value fails loudly instead of
+      // silently falling back to a literal.
+      YOUTUBE_CHANNEL_ID: envField.string({ context: 'server', access: 'public' }),
+    },
+  },
+
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', es: 'es', ca: 'ca', nl: 'nl' },
+      },
+    }),
+    mailObfuscation(),
+  ],
 
   fonts: [
       {
