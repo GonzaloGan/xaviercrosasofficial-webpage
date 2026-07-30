@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import ReleaseCard from './ReleaseCard.astro';
+import { useTranslations } from '../../i18n/ui';
+import type { Locale } from '../../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+// Featured first, then newest, then the manual `order` tiebreak.
+const releases = (await getCollection('releases')).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  const byDate = b.data.releaseDate.getTime() - a.data.releaseDate.getTime();
+  return byDate !== 0 ? byDate : a.data.order - b.data.order;
+});
+---
+
+<section id="music" class="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-14">
+  <h2 class="mb-6 text-xs uppercase tracking-label text-white/45">{t('music.heading')}</h2>
+
+  <div class="grid gap-6 lg:grid-cols-3">
+    {releases.map((release) => <ReleaseCard release={release} locale={locale} />)}
+  </div>
+</section>
