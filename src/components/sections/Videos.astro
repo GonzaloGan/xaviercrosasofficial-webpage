@@ -89,11 +89,9 @@ const hydrateFromApi = videos.length === 0;
 
   {
     hydrateFromApi && (
-      <script is:inline>
+      <script is:inline define:vars={{ locale, openInNewTab: t('a11y.opensInNewTab') }}>
         const list = document.getElementById('videos-list');
         const empty = document.getElementById('videos-empty');
-        const locale = {JSON.stringify(locale)};
-        const openInNewTab = {JSON.stringify(t('a11y.opensInNewTab'))};
 
         function safeDate(value) {
           const date = new Date(value);
