@@ -11,6 +11,11 @@ export type SiteProfile = {
     readonly youtube: string;
     readonly spotify: string;
   };
+  readonly promoBanner: {
+    readonly enabled: boolean;
+    readonly albumTitle: string;
+    readonly spotifyUrl: string;
+  };
 };
 
 export const site: SiteProfile = {
@@ -20,6 +25,12 @@ export const site: SiteProfile = {
     instagram: 'https://instagram.com/xaviercrosasofficial',
     youtube: 'https://youtube.com/@XavierCrosas',
     spotify: 'https://open.spotify.com/artist/6PaPHlXXxfowSsJdvdxyke',
+  },
+  // Temporary campaign switch for homepage album promotion.
+  promoBanner: {
+    enabled: true,
+    albumTitle: "The Hero's Crisis",
+    spotifyUrl: 'https://open.spotify.com/intl-es/album/2hPoMb20zaguy3sA6RqtCP',
   },
 };
 

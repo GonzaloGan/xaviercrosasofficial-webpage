@@ -121,6 +121,18 @@ Steps 2–4 are enforced by the type system and the content schemas; skipping on
 
 Edit the `@theme` block in `src/styles/global.css`. Do not reintroduce hex literals in components.
 
+### Enable or disable the temporary album banner
+
+Edit `src/data/site.ts` and update `site.promoBanner.enabled`.
+
+- `true` keeps the banner visible on the homepage.
+- `false` hides it without component edits.
+
+You can also change campaign metadata in the same object:
+
+- `site.promoBanner.albumTitle`
+- `site.promoBanner.spotifyUrl`
+
 ---
 
 ## Verification checklist

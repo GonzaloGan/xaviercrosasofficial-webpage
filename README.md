@@ -1,63 +1,74 @@
-# Astro Starter Kit: Blog
+# Xavier Crosas Official Website
 
-```sh
-npm create astro@latest -- --template blog
-```
+Official multilingual artist website for Xavier Crosas.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built with Astro 6 and Tailwind CSS v4, deployed to Cloudflare Workers.
 
-Features:
+## Overview
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+- Locales by route: /, /es/, /ca/, /nl/
+- Content-first architecture using Astro Content Collections
+- Static prerender for public pages
+- Edge API route for latest YouTube videos: /api/youtube-latest
 
-## 🚀 Project Structure
+## Tech Stack
 
-Inside of your Astro project, you'll see the following folders and files:
+- Astro 6
+- Tailwind CSS v4
+- Cloudflare Workers (Wrangler)
+- fast-xml-parser (YouTube RSS parsing)
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+## Project Structure
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+src/
+	assets/
+	components/
+	content/
+		bio/
+		releases/
+	data/
+	i18n/
+	layouts/
+	pages/
+	styles/
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Commands
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+- npm install: install dependencies
+- npm run dev: local dev server on localhost:4321
+- npm run build: production build to dist/
+- npm run preview: build + wrangler dev
+- npm run deploy: build + wrangler deploy
+- npm run generate-types: regenerate Wrangler types
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Environment
 
-## 🧞 Commands
+Create a local .env file with:
 
-All commands are run from the root of the project, from a terminal:
+YOUTUBE_CHANNEL_ID=your_channel_id
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+For production, set it as a Worker secret:
 
-## 👀 Want to learn more?
+npx wrangler secret put YOUTUBE_CHANNEL_ID
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Temporary Album Promo Banner
 
-## Credit
+The homepage promo banner for The Hero's Crisis is controlled from:
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+- src/data/site.ts
+
+Toggle this value when you want to disable the campaign:
+
+- promoBanner.enabled: true or false
+
+You can also update:
+
+- promoBanner.albumTitle
+- promoBanner.spotifyUrl
+
+## Source of Truth Docs
+
+- .specify/memory/constitution.md
+- specs/001-astro-rework/spec.md
+- specs/001-astro-rework/quickstart.md
+- AGENTS.md

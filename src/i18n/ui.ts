@@ -23,6 +23,10 @@ const en = {
   'hero.primary': 'Listen',
   'hero.secondary': 'View videos',
 
+  'promo.kicker': 'New release',
+  'promo.body': "A new album is now available on Spotify. Listen and share if it resonates with you.",
+  'promo.cta': 'Listen on Spotify',
+
   'music.heading': 'Music',
   'music.featured': 'Featured release',
   'music.streaming': 'Streaming',
@@ -66,6 +70,10 @@ const es = {
   'hero.primary': 'Escuchar',
   'hero.secondary': 'Ver vídeos',
 
+  'promo.kicker': 'Nuevo lanzamiento',
+  'promo.body': 'Hay un nuevo álbum disponible en Spotify. Escúchalo y compártelo si conecta contigo.',
+  'promo.cta': 'Escuchar en Spotify',
+
   'music.heading': 'Música',
   'music.featured': 'Lanzamiento destacado',
   'music.streaming': 'Streaming',
@@ -107,6 +115,10 @@ const ca = {
   'hero.primary': 'Escoltar',
   'hero.secondary': 'Veure vídeos',
 
+  'promo.kicker': 'Nou llançament',
+  'promo.body': 'Hi ha un nou àlbum disponible a Spotify. Escolta\'l i comparteix-lo si et ressona.',
+  'promo.cta': 'Escoltar a Spotify',
+
   'music.heading': 'Música',
   'music.featured': 'Publicació destacada',
   'music.streaming': 'Streaming',
@@ -147,6 +159,10 @@ const nl = {
     'Als ik mezelf in één woord zou moeten omschrijven, dan is het woord dat tegenwoordig het beste bij mij past zoeker.',
   'hero.primary': 'Luisteren',
   'hero.secondary': "Video's bekijken",
+
+  'promo.kicker': 'Nieuwe release',
+  'promo.body': 'Er staat nu een nieuw album op Spotify. Luister en deel het als het bij je binnenkomt.',
+  'promo.cta': 'Luisteren op Spotify',
 
   'music.heading': 'Muziek',
   'music.featured': 'Uitgelichte release',
