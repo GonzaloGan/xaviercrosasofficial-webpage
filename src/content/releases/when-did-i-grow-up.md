@@ -9,7 +9,7 @@ coverAlt:
 releaseDate: 2026-01-01
 credits: "Recording, Mixing & Mastering: Icy Donuts Music Studio"
 type: "album"
-order: 3
+order: 4
 links:
   spotify: "https://open.spotify.com/album/0IteIu5XQh9KhlctLH0heT"
   youtube: "https://www.youtube.com/watch?v=xDuBDXz9_2Q"

@@ -9,7 +9,8 @@ coverAlt:
 releaseDate: 2026-01-01
 credits: "© 2026 XCB Studio"
 type: "single"
-order: 2
+order: 3
 links:
   spotify: "https://open.spotify.com/track/3acimGFmocle0Dv5tBNLtm"
+  youtube: "https://www.youtube.com/watch?v=JTIe3Tr37GI"
 ---
