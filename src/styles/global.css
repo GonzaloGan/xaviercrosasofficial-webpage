@@ -1,29 +1,41 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Design tokens — the single source of truth for the palette and shape language.
+   Components use these utilities (bg-surface, rounded-panel, tracking-label, …)
+   instead of literal values. Constitution, Principle VI.3.
 
-@font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+   --font-inter comes from Astro's font pipeline (astro.config.mjs) and is injected
+   by <Font cssVariable="--font-inter" /> in BaseLayout. */
+@theme {
+  --color-surface: #0b0b0d;
+  --color-surface-raised: #141418;
 
-:root {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-panel: 2rem;
+  --radius-card: 1.5rem;
+
+  --tracking-label: 0.3em;
+  --tracking-display: -0.04em;
 }
 
 html {
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
-  @apply bg-black text-white antialiased;
+  @apply bg-surface text-white antialiased;
 }
+
+/* Visible focus for keyboard users — Principle V.4. */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-white;
+}
+

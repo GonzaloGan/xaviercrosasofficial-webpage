@@ -1,0 +1,84 @@
+---
+import Icon from '../Icon.astro';
+import { site } from '../../data/site';
+import { useTranslations } from '../../i18n/ui';
+import { formatDate, type Locale } from '../../i18n/utils';
+import { fetchLatestVideos, type Video } from '../../lib/youtube';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+// Rendered on the server so the titles are in the HTML. A feed outage degrades to the
+// empty state rather than failing the page — spec US-4.
+let videos: Video[] = [];
+const channelId = import.meta.env.YOUTUBE_CHANNEL_ID?.trim();
+try {
+  if (channelId) {
+    videos = await fetchLatestVideos(channelId);
+  }
+} catch (error) {
+  console.error('[videos] YouTube feed unavailable:', error);
+}
+---
+
+<section id="videos" class="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-14">
+  <div class="mb-6 flex items-end justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-label text-white/45">YouTube</p>
+      <h2 class="mt-2 text-3xl font-semibold tracking-display">{t('videos.heading')}</h2>
+    </div>
+
+    <a
+      href={site.social.youtube}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden items-center gap-2 text-sm text-white/70 transition hover:text-white sm:inline-flex"
+    >
+      <Icon name="youtube" />
+      {t('videos.channel')}
+      <span class="sr-only">({t('a11y.opensInNewTab')})</span>
+    </a>
+  </div>
+
+  {
+    videos.length === 0 ? (
+      <p class="rounded-panel border border-white/10 bg-white/5 p-6 text-white/60">
+        {t('videos.empty')}
+      </p>
+    ) : (
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {videos.map((video) => (
+          <li>
+            <a
+              href={video.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block overflow-hidden rounded-panel border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:bg-white/10"
+            >
+              <img
+                src={video.thumbnail}
+                alt=""
+                width="480"
+                height="360"
+                loading="lazy"
+                decoding="async"
+                class="h-44 w-full object-cover transition group-hover:scale-105"
+              />
+              <div class="p-5">
+                <h3 class="line-clamp-2 text-base font-medium text-white">{video.title}</h3>
+                <p class="mt-2 text-xs text-white/45">
+                  <time datetime={video.publishedAt}>{formatDate(video.publishedAt, locale)}</time>
+                </p>
+              </div>
+              <span class="sr-only">({t('a11y.opensInNewTab')})</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>

@@ -1,11 +1,13 @@
 ---
-import ArtistPortfolioStarter from '../components/ArtistPortfolioStarter';
-import "../styles/global.css";
----
-<html lang="en">
-  <body class="font-sans bg-[#0b0b0d] text-white antialiased">
-    <slot />
-  </body>
-</html>
+import HomeSections from '../components/HomeSections.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-<ArtistPortfolioStarter client:visible />
+export const prerender = true;
+
+const locale = 'en' as const;
+---
+
+<BaseLayout locale={locale}>
+  <HomeSections locale={locale} />
+</BaseLayout>
+

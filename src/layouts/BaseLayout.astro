@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+
+import { Font } from 'astro:assets';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import heroPortrait from '../assets/images/xavi1.webp';
+import { site, socialProfiles } from '../data/site';
+import { useTranslations } from '../i18n/ui';
+import { htmlLang, locales, localisePath, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  /** Absolute or site-relative URL for the Open Graph image. */
+  image?: string;
+}
+
+const { locale, title, description, image } = Astro.props;
+const t = useTranslations(locale);
+
+const pageTitle = title ?? t('meta.title');
+const pageDescription = description ?? t('meta.description');
+
+const canonical = new URL(localisePath('/', locale), Astro.site);
+// No dedicated 1200×630 share image exists yet (research O-3); the portrait stands in.
+const ogImage = new URL(image ?? heroPortrait.src, Astro.site);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: site.name,
+  url: canonical.href,
+  email: `mailto:${site.email}`,
+  genre: 'Singer-songwriter',
+  sameAs: socialProfiles,
+};
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Font cssVariable="--font-inter" preload />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical.href} />
+
+    {
+      locales.map((code) => (
+        <link
+          rel="alternate"
+          hreflang={htmlLang[code]}
+          href={new URL(localisePath('/', code), Astro.site).href}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={htmlLang[locale]} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage.href} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage.href} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+    >
+      {t('a11y.skipToContent')}
+    </a>
+
+    <Header locale={locale} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>

@@ -1,10 +1,7 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
-
-import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -14,8 +11,25 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
-  integrations: [mdx(), sitemap(), react(), mailObfuscation()],
+  site: 'https://www.xaviercrosasofficial.com',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es', 'ca', 'nl'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', es: 'es', ca: 'ca', nl: 'nl' },
+      },
+    }),
+    mailObfuscation(),
+  ],
 
   fonts: [
       {

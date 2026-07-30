@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { useTranslations } from '../i18n/ui';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+
+const links = [
+  { href: site.social.spotify, label: 'Spotify', icon: 'spotify' },
+  { href: site.social.youtube, label: 'YouTube', icon: 'youtube' },
+  { href: site.social.instagram, label: 'Instagram', icon: 'instagram' },
+] as const;
+---
+
+<footer class="border-t border-white/10">
+  <div
+    class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between lg:px-8"
+  >
+    <p>&copy; {year} {site.name}. {t('footer.tagline')}</p>
+
+    <ul class="flex items-center gap-5">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 transition hover:text-white"
+            >
+              <Icon name={link.icon} />
+              {link.label}
+              <span class="sr-only">({t('a11y.opensInNewTab')})</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

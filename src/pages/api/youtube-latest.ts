@@ -1,82 +1,66 @@
-import { XMLParser } from "fast-xml-parser";
+import type { APIRoute } from 'astro';
+import { fetchLatestVideos } from '../../lib/youtube';
 
-type FeedEntry = {
-  title?: string;
-  published?: string;
-  link?: { href?: string; rel?: string } | { href?: string; rel?: string }[];
-  "yt:videoId"?: string;
-  videoId?: string;
+// Live data: this is the one route that is not prerendered.
+export const prerender = false;
+
+/** 30 minutes at the edge, with a day of stale-while-revalidate insurance. */
+const CACHE_CONTROL = 'public, max-age=0, s-maxage=1800, stale-while-revalidate=86400';
+
+const YOUTUBE_CHANNEL_ID_KEY = 'YOUTUBE_CHANNEL_ID';
+
+type SecretsKvBinding = {
+  get(key: string): Promise<string | null>;
 };
 
-export async function GET() {
-  try {
-    const rssUrl =
-      "https://www.youtube.com/feeds/videos.xml?channel_id=UCPJbHYCqGDWiULG6dDE_Tzw";
+type WorkerRuntimeEnv = {
+  YOUTUBE_CHANNEL_ID?: string;
+  SECRETS_KV?: SecretsKvBinding;
+};
 
-    const response = await fetch(rssUrl, {
-      // avoid stale cached responses while debugging
-      cache: "no-store",
-    });
+async function resolveChannelId(locals: App.Locals): Promise<string | undefined> {
+  const runtime = (locals as App.Locals & { runtime?: { env?: WorkerRuntimeEnv } }).runtime;
+  const secret = runtime?.env?.YOUTUBE_CHANNEL_ID?.trim();
+  if (secret) return secret;
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch YouTube RSS feed");
-    }
+  const kvValue = await runtime?.env?.SECRETS_KV?.get(YOUTUBE_CHANNEL_ID_KEY);
+  const channelId = kvValue?.trim();
+  return channelId || undefined;
+}
 
-    const xml = await response.text();
+export const GET: APIRoute = async ({ locals }) => {
+  const channelId = await resolveChannelId(locals);
 
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      attributeNamePrefix: "",
-      removeNSPrefix: true,
-    });
-
-    const parsed = parser.parse(xml);
-
-    const rawEntries = parsed?.feed?.entry ?? [];
-    const entries: FeedEntry[] = Array.isArray(rawEntries)
-      ? rawEntries
-      : [rawEntries];
-
-    const items = entries.slice(0, 5).map((entry: FeedEntry) => {
-      const videoId = entry["yt:videoId"] || entry.videoId || "";
-
-      const links = Array.isArray(entry.link)
-        ? entry.link
-        : entry.link
-          ? [entry.link]
-          : [];
-
-      const url =
-        links.find((l) => l.rel === "alternate")?.href ??
-        links[0]?.href ??
-        (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
-
-      return {
-        id: videoId || crypto.randomUUID(),
-        title: entry.title ?? "Untitled",
-        publishedAt: entry.published,
-        thumbnail: videoId
-          ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-          : "",
-        url,
-      };
-    });
-
-    return new Response(JSON.stringify({ items, count: items.length }), {
+  if (!channelId) {
+    return new Response(JSON.stringify({ items: [], count: 0, error: 'missing_channel_id' }), {
+      status: 500,
       headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-    });
-  } catch (error) {
-    console.error(error);
-
-    return new Response(JSON.stringify({ items: [], count: 0 }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
       },
     });
   }
-}
+
+  try {
+    const items = await fetchLatestVideos(channelId);
+
+    return new Response(JSON.stringify({ items, count: items.length }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': CACHE_CONTROL,
+      },
+    });
+  } catch (error) {
+    // Logged server-side; the client gets a stable token, never upstream details.
+    console.error('[youtube-latest] upstream failure:', error);
+
+    return new Response(JSON.stringify({ items: [], count: 0, error: 'upstream_unavailable' }), {
+      status: 502,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      },
+    });
+  }
+};

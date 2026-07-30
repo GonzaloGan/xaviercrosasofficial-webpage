@@ -7,6 +7,13 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"kv_namespaces": [
+		{
+			"binding": "SECRETS_KV",
+			"id": "02c5b465ad294f4bbc8ab3310ad55022",
+			"preview_id": "bf27a508bb634de6aa6095f63ec940da"
+		}
+	],
 	"observability": {
 		"enabled": true
 	}

@@ -1,0 +1,35 @@
+---
+import { localeLabels, localeNames, locales, localisePath, type Locale } from '../i18n/utils';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  class?: string;
+}
+
+const { locale, class: className = '' } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<nav aria-label={t('a11y.language')} class={`flex items-center gap-1 ${className}`}>
+  {
+    locales.map((code) => {
+      const isCurrent = code === locale;
+      return (
+        <a
+          href={localisePath('/', code)}
+          hreflang={code}
+          lang={code}
+          aria-current={isCurrent ? 'true' : undefined}
+          class:list={[
+            'rounded-full px-2.5 py-1 text-xs font-medium transition',
+            isCurrent ? 'bg-white text-black' : 'text-white/60 hover:text-white',
+          ]}
+        >
+          <span aria-hidden="true">{localeLabels[code]}</span>
+          <span class="sr-only">{localeNames[code]}</span>
+        </a>
+      );
+    })
+  }
+</nav>
