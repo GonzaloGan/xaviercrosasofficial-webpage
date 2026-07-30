@@ -1,7 +1,7 @@
 // @ts-check
 
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, envField, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -18,15 +18,6 @@ export default defineConfig({
     locales: ['en', 'es', 'ca', 'nl'],
     routing: {
       prefixDefaultLocale: false,
-    },
-  },
-
-  env: {
-    schema: {
-      // The channel is public information, but keeping it in configuration means the
-      // feed reader stays reusable and a missing value fails loudly instead of
-      // silently falling back to a literal.
-      YOUTUBE_CHANNEL_ID: envField.string({ context: 'server', access: 'public' }),
     },
   },
 

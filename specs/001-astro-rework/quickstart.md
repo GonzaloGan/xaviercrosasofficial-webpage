@@ -40,11 +40,35 @@ Create `.env` in the project root for local development:
 YOUTUBE_CHANNEL_ID=UCPJbHYCqGDWiULG6dDE_Tzw
 ```
 
-For production, set it as a Worker variable:
+For production API requests, set it as a Worker secret:
 
 ```
 npx wrangler secret put YOUTUBE_CHANNEL_ID
 ```
+
+Optional fallback: bind a KV namespace as `SECRETS_KV` in `wrangler.jsonc` and store the key
+`YOUTUBE_CHANNEL_ID` there. The endpoint checks Worker secret first, then KV.
+
+KV fallback setup (optional):
+
+```
+npx wrangler kv namespace create SECRETS_KV
+npx wrangler kv namespace create SECRETS_KV --preview
+```
+
+Copy the returned namespace ids into `wrangler.jsonc`:
+
+- `kv_namespaces[0].id`
+- `kv_namespaces[0].preview_id`
+
+Then write the value:
+
+```
+npx wrangler kv key put --binding=SECRETS_KV YOUTUBE_CHANNEL_ID "UC..."
+```
+
+Note: the homepage videos section is prerendered at build time, so your build environment must also
+provide `YOUTUBE_CHANNEL_ID` (for example via `.env`) when generating `dist/`.
 
 The channel id is public information, but keeping it in configuration means the endpoint is
 reusable and the value is changeable without a code edit. `.env` must remain untracked.

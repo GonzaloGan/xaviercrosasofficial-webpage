@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { YOUTUBE_CHANNEL_ID } from 'astro:env/server';
 import { fetchLatestVideos } from '../../lib/youtube';
 
 // Live data: this is the one route that is not prerendered.
@@ -8,9 +7,42 @@ export const prerender = false;
 /** 30 minutes at the edge, with a day of stale-while-revalidate insurance. */
 const CACHE_CONTROL = 'public, max-age=0, s-maxage=1800, stale-while-revalidate=86400';
 
-export const GET: APIRoute = async () => {
+const YOUTUBE_CHANNEL_ID_KEY = 'YOUTUBE_CHANNEL_ID';
+
+type SecretsKvBinding = {
+  get(key: string): Promise<string | null>;
+};
+
+type WorkerRuntimeEnv = {
+  YOUTUBE_CHANNEL_ID?: string;
+  SECRETS_KV?: SecretsKvBinding;
+};
+
+async function resolveChannelId(locals: App.Locals): Promise<string | undefined> {
+  const runtime = (locals as App.Locals & { runtime?: { env?: WorkerRuntimeEnv } }).runtime;
+  const secret = runtime?.env?.YOUTUBE_CHANNEL_ID?.trim();
+  if (secret) return secret;
+
+  const kvValue = await runtime?.env?.SECRETS_KV?.get(YOUTUBE_CHANNEL_ID_KEY);
+  const channelId = kvValue?.trim();
+  return channelId || undefined;
+}
+
+export const GET: APIRoute = async ({ locals }) => {
+  const channelId = await resolveChannelId(locals);
+
+  if (!channelId) {
+    return new Response(JSON.stringify({ items: [], count: 0, error: 'missing_channel_id' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      },
+    });
+  }
+
   try {
-    const items = await fetchLatestVideos(YOUTUBE_CHANNEL_ID);
+    const items = await fetchLatestVideos(channelId);
 
     return new Response(JSON.stringify({ items, count: items.length }), {
       status: 200,
