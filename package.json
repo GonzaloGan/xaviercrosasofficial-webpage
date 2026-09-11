@@ -1,7 +1,7 @@
 {
   "name": "xaviercrosasofficial-webpage",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -14,19 +14,16 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.6.0",
-    "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.7",
+    "@astrojs/cloudflare": "^14.3.1",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.2",
     "astro-mail-obfuscation": "^2.3.4",
-    "fast-xml-parser": "^5.8.0",
-    "sharp": "^0.34.3",
-    "tailwindcss": "^4.3.0"
+    "fast-xml-parser": "^5.11.1",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "wrangler": "^4.95.0"
-  },
-  "overrides": {
-    "vite": "^7"
+    "wrangler": "^4.131.1"
   }
 }
