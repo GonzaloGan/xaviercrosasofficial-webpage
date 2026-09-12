@@ -8,7 +8,7 @@ export type Video = {
   readonly url: string;
 };
 
-export const MAX_VIDEOS = 5;
+export const MAX_VIDEOS = 6;
 export const UPSTREAM_TIMEOUT_MS = 5000;
 
 const parser = new XMLParser({
