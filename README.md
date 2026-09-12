@@ -13,7 +13,7 @@ Built with Astro 7 and Tailwind CSS v4, deployed to Cloudflare Workers.
 
 ## Tech Stack
 
-- Astro 6
+- Astro 7
 - Tailwind CSS v4
 - Cloudflare Workers (Wrangler)
 - fast-xml-parser (YouTube RSS parsing)
