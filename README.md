@@ -2,7 +2,7 @@
 
 Official multilingual artist website for Xavier Crosas.
 
-Built with Astro 6 and Tailwind CSS v4, deployed to Cloudflare Workers.
+Built with Astro 7 and Tailwind CSS v4, deployed to Cloudflare Workers.
 
 ## Overview
 

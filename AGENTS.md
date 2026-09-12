@@ -5,7 +5,7 @@ Context for any AI agent or new contributor working in this repository.
 ## What this is
 
 The official website of **Xavier Crosas**, a singer-songwriter. A four-language (EN / ES / CA / NL)
-content site built with **Astro 6**, styled with **Tailwind CSS v4**, deployed to **Cloudflare
+content site built with **Astro 7**, styled with **Tailwind CSS v4**, deployed to **Cloudflare
 Workers** via Wrangler.
 
 It is a brochure site, not an application. No accounts, no database, no mutable state.
