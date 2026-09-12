@@ -35,7 +35,7 @@ const en = {
 
   'videos.heading': 'Latest videos',
   'videos.channel': 'Channel',
-  'videos.empty': 'Your latest five YouTube videos will appear here.',
+  'videos.empty': 'The latest YouTube videos will appear here.',
 
   'contact.heading': 'Contact',
   'contact.body': 'Bookings, press, collaborations, and commissions.',
@@ -83,7 +83,7 @@ const es = {
 
   'videos.heading': 'Últimos vídeos',
   'videos.channel': 'Canal',
-  'videos.empty': 'Aquí aparecerán tus cinco últimos vídeos de YouTube.',
+  'videos.empty': 'Aquí aparecerán los últimos vídeos de YouTube.',
 
   'contact.heading': 'Contacto',
   'contact.body': 'Bookings, prensa, colaboraciones y encargos.',
@@ -129,7 +129,7 @@ const ca = {
 
   'videos.heading': 'Últims vídeos',
   'videos.channel': 'Canal',
-  'videos.empty': 'Aquí apareixeran els teus cinc últims vídeos de YouTube.',
+  'videos.empty': 'Aquí apareixeran els últims vídeos de YouTube.',
 
   'contact.heading': 'Contacte',
   'contact.body': 'Bookings, premsa, col·laboracions i encàrrecs.',
@@ -175,7 +175,7 @@ const nl = {
 
   'videos.heading': "Laatste video's",
   'videos.channel': 'Kanaal',
-  'videos.empty': "Hier verschijnen je laatste vijf YouTube-video's.",
+  'videos.empty': "De nieuwste YouTube-video's verschijnen hier.",
 
   'contact.heading': 'Contact',
   'contact.body': 'Boekingen, pers, samenwerkingen en commissions.',
