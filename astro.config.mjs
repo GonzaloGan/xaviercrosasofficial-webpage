@@ -1,7 +1,7 @@
 // @ts-check
 
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders, sessionDrivers } from 'astro/config';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -21,9 +21,14 @@ export default defineConfig({
     },
   },
 
-  // Keep sessions off Cloudflare KV to avoid requiring a SESSION binding.
-  session: {
-    driver: sessionDrivers.memory(),
+  // No sessions on this site: skips the KV binding and drops the session runtime from the Worker.
+  session: false,
+
+  env: {
+    schema: {
+      // Optional at build: Videos.astro degrades to the API-hydrated empty state without it.
+      YOUTUBE_CHANNEL_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
+    },
   },
 
   integrations: [
@@ -65,5 +70,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  adapter: cloudflare(),
+  // All images live on prerendered pages; transform at build time instead of the
+  // default 'cloudflare-binding', which provisions a runtime Images binding on deploy.
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
 });

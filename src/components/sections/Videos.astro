@@ -1,4 +1,5 @@
 ---
+import { YOUTUBE_CHANNEL_ID } from 'astro:env/server';
 import Icon from '../Icon.astro';
 import { site } from '../../data/site';
 import { useTranslations } from '../../i18n/ui';
@@ -15,7 +16,7 @@ const t = useTranslations(locale);
 // Rendered on the server so the titles are in the HTML. A feed outage degrades to the
 // empty state rather than failing the page — spec US-4.
 let videos: Video[] = [];
-const channelId = import.meta.env.YOUTUBE_CHANNEL_ID?.trim();
+const channelId = YOUTUBE_CHANNEL_ID?.trim();
 try {
   if (channelId) {
     videos = await fetchLatestVideos(channelId);

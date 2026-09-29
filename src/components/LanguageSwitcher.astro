@@ -11,7 +11,7 @@ const { locale, class: className = '' } = Astro.props;
 const t = useTranslations(locale);
 ---
 
-<nav aria-label={t('a11y.language')} class={`flex items-center gap-1 ${className}`}>
+<nav aria-label={t('a11y.language')} class:list={['flex items-center gap-1', className]}>
   {
     locales.map((code) => {
       const isCurrent = code === locale;
