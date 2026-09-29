@@ -15,6 +15,7 @@ export type SiteProfile = {
     readonly enabled: boolean;
     readonly albumTitle: string;
     readonly spotifyUrl: string;
+    readonly linktreeUrl: string;
   };
 };
 
@@ -31,6 +32,7 @@ export const site: SiteProfile = {
     enabled: true,
     albumTitle: "The Hero's Crisis",
     spotifyUrl: 'https://open.spotify.com/intl-es/album/2hPoMb20zaguy3sA6RqtCP',
+    linktreeUrl: 'https://linktr.ee/xaviercrosasofficial',
   },
 };
 
