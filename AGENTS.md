@@ -57,7 +57,7 @@ npm run preview   # build + wrangler dev, use this to test the API and cache hea
 npm run deploy    # build + wrangler deploy
 ```
 
-Requires Node ≥ 22.12.0 and `YOUTUBE_CHANNEL_ID` in `.env`.
+Requires Node ≥ 22.23.4 and `YOUTUBE_CHANNEL_ID` in `.env`.
 
 ## Before you say you are done
 

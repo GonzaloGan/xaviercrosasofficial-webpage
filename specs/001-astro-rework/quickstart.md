@@ -10,7 +10,7 @@ Everything needed to run, change and ship this site.
 
 ## Prerequisites
 
-- Node ≥ 22.12.0 (enforced by `engines` in `package.json`)
+- Node ≥ 22.23.4 (enforced by `engines` in `package.json`)
 - npm
 - A Cloudflare account with Wrangler authenticated, for deployment only
 
