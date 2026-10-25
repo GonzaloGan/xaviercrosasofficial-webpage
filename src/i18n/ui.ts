@@ -41,6 +41,7 @@ const en = {
   'contact.body': 'Bookings, press, collaborations, and commissions.',
   'contact.cta': 'Open for bookings and collaborations',
   'contact.email': 'Email',
+  'contact.noscript': 'Enable JavaScript to see the email address.',
 
   'footer.tagline': 'Built for artists who want a strong brand without heavy maintenance.',
 
@@ -89,6 +90,7 @@ const es = {
   'contact.body': 'Bookings, prensa, colaboraciones y encargos.',
   'contact.cta': 'Disponible para bookings y colaboraciones',
   'contact.email': 'Correo',
+  'contact.noscript': 'Activa JavaScript para ver la dirección de correo.',
 
   'footer.tagline': 'Pensado para artistas que quieren una marca fuerte con poco mantenimiento.',
 
@@ -135,6 +137,7 @@ const ca = {
   'contact.body': 'Bookings, premsa, col·laboracions i encàrrecs.',
   'contact.cta': 'Disponible per a bookings i col·laboracions',
   'contact.email': 'Correu',
+  'contact.noscript': "Activa JavaScript per veure l'adreça de correu.",
 
   'footer.tagline': 'Pensat per a artistes que volen una marca forta amb poc manteniment.',
 
@@ -181,6 +184,7 @@ const nl = {
   'contact.body': 'Boekingen, pers, samenwerkingen en commissions.',
   'contact.cta': 'Beschikbaar voor boekingen en samenwerkingen',
   'contact.email': 'E-mail',
+  'contact.noscript': 'Schakel JavaScript in om het e-mailadres te zien.',
 
   'footer.tagline': 'Gemaakt voor artiesten die een sterk merk willen zonder veel onderhoud.',
 
