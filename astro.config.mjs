@@ -68,6 +68,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // astro-mail-obfuscation's middleware lazy-imports cheerio, whose CJS deps (undici,
+    // whatwg-mimetype, iconv-lite) crash workerd in dev unless pre-bundled. The Cloudflare
+    // adapter forwards this list to its server environments.
+    optimizeDeps: {
+      include: ['astro-mail-obfuscation > cheerio'],
+    },
   },
 
   // All images live on prerendered pages; transform at build time instead of the
